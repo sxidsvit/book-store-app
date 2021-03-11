@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Book Store App",
+    "slug": "book-store-app",
+    "description": "Book Store App",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "android"
+    ],
+    "orientation": "portrait",
+    "backgroundColor": "#3A4047",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#3A4047"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.sxidsvit.bookstoreapp"
+    }
+  }
+}
