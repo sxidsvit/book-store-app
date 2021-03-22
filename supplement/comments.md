@@ -141,3 +141,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 ```
 
 ---
+
+## Admin Panel
+
+`npx create-react-app adminpanel`
