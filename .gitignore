@@ -1,4 +1,5 @@
 node_modules/**/*
-
+/admin-panel/node_modules/**/*
 .expo
 .vscode
+node_modules
