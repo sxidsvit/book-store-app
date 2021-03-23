@@ -25,9 +25,6 @@ const Home = ({ navigation }) => {
     //  Getting books info from Realtime database
     const { databaseBooks, categories } = useDatabase()
 
-    console.log('categories: ', categories);
-    // console.log('databaseBooks: ', databaseBooks);
-
     const profileData = {
         name: 'Username',
         point: 200

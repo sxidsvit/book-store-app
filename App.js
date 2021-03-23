@@ -1,11 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-
 import { BookDetail } from "./screens/";
 import Tabs from "./navigation/tabs";
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading'
+
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer'])
 
 const theme = {
     ...DefaultTheme,
