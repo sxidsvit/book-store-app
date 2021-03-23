@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useDatabase from '../firebase/hooks/useDatabase'
 import {
     View,
     Text,
@@ -11,7 +11,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
-import { database } from '../firebase/config'
 
 const LineDivider = () => {
     return (
@@ -23,44 +22,11 @@ const LineDivider = () => {
 
 const Home = ({ navigation }) => {
 
-    const [databaseBooks, setDatabaseBooks] = useState([])
-    const [categories, setCategories] = React.useState([]);
+    //  Getting books info from Realtime database
+    const { databaseBooks, categories } = useDatabase()
 
-    useEffect(() => {
-        //  Getting books info from Realtime database
-        const databaseRef = database.ref(`bookstore`).get()
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const booksObject = snapshot.val()
-                    const data = Object.values(booksObject)
-                    setDatabaseBooks(data)
-                } else {
-                    console.log('No data evailable')
-                }
-            }).catch((error) => {
-                console.error('databaseRef: ', error)
-            })
-
-        // Books' categories 
-        const categoriesFromDatabaseBooks = [...new Set(databaseBooks
-            .map((book) => book.categoryName)
-            .flat())]
-
-        // Categories with relevant books
-        const categoriesData = categoriesFromDatabaseBooks
-            .map((category, index) => {
-                const booksFromCurrentCategory = databaseBooks
-                    .filter(book => book.categoryName.includes(category))
-                return {
-                    id: index,
-                    categoryName: category,
-                    books: booksFromCurrentCategory
-                }
-            })
-
-        setCategories(categoriesData)
-
-    }, [])
+    console.log('categories: ', categories);
+    // console.log('databaseBooks: ', databaseBooks);
 
     const profileData = {
         name: 'Username',
