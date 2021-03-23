@@ -36,7 +36,7 @@ const BookDetail = ({ route, navigation }) => {
         return (
             <View style={{ flex: 1 }}>
                 <ImageBackground
-                    source={book.bookCover}
+                    source={{ uri: book.bookCover }}
                     resizeMode="cover"
                     style={{
                         position: 'absolute',
@@ -101,7 +101,7 @@ const BookDetail = ({ route, navigation }) => {
                 {/* Book Cover */}
                 <View style={{ flex: 5, paddingTop: SIZES.padding2, alignItems: 'center' }}>
                     <Image
-                        source={book.bookCover}
+                        source={{ uri: book.bookCover }}
                         resizeMode="contain"
                         style={{
                             flex: 1,

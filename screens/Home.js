@@ -24,8 +24,10 @@ const LineDivider = () => {
 const Home = ({ navigation }) => {
 
     const [databaseBooks, setDatabaseBooks] = useState([])
+    const [categories, setCategories] = React.useState([]);
 
     useEffect(() => {
+        //  Getting books info from Realtime database
         const databaseRef = database.ref(`bookstore`).get()
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -38,6 +40,26 @@ const Home = ({ navigation }) => {
             }).catch((error) => {
                 console.error('databaseRef: ', error)
             })
+
+        // Books' categories 
+        const categoriesFromDatabaseBooks = [...new Set(databaseBooks
+            .map((book) => book.categoryName)
+            .flat())]
+
+        // Categories with relevant books
+        const categoriesData = categoriesFromDatabaseBooks
+            .map((category, index) => {
+                const booksFromCurrentCategory = databaseBooks
+                    .filter(book => book.categoryName.includes(category))
+                return {
+                    id: index,
+                    categoryName: category,
+                    books: booksFromCurrentCategory
+                }
+            })
+
+        setCategories(categoriesData)
+
     }, [])
 
     const profileData = {
@@ -45,42 +67,9 @@ const Home = ({ navigation }) => {
         point: 200
     }
 
-    const bookOtherWordsForHome = databaseBooks[0]
-
-    const bookTheMetropolis = databaseBooks[1]
-
-    const bookTheTinyDragon = databaseBooks[2]
-
-    const myBooksData = databaseBooks
-
-    const categoriesData = [
-        {
-            id: 1,
-            categoryName: "Best Seller",
-            books: [
-                bookOtherWordsForHome, bookTheMetropolis, bookTheTinyDragon
-            ]
-        },
-        {
-            id: 2,
-            categoryName: "The Latest",
-            books: [
-                bookTheMetropolis
-            ]
-        },
-        {
-            id: 3,
-            categoryName: "Coming Soon",
-            books: [
-                bookTheTinyDragon
-            ]
-        },
-    ]
-
     const [profile, setProfile] = React.useState(profileData);
-    const [myBooks, setMyBooks] = React.useState(myBooksData);
-    const [categories, setCategories] = React.useState(categoriesData);
     const [selectedCategory, setSelectedCategory] = React.useState(1);
+
 
     function renderHeader(profile) {
         return (
@@ -238,7 +227,7 @@ const Home = ({ navigation }) => {
         )
     }
 
-    function renderMyBookSection(myBooks) {
+    function renderMyBookSection(databaseBooks) {
 
         const renderItemHorizontal = ({ item, index }) => {
             return (
@@ -305,11 +294,11 @@ const Home = ({ navigation }) => {
 
                 {/* Books */}
                 <View style={{
-                    // flex: 1,
-                    // marginTop: SIZES.padding,
+                    flex: 1,
+                    marginTop: SIZES.padding,
                 }}>
                     <FlatList
-                        data={myBooks}
+                        data={databaseBooks}
                         renderItem={renderItemHorizontal}
                         keyExtractor={item => `${item.id}`}
                         horizontal
@@ -428,9 +417,9 @@ const Home = ({ navigation }) => {
                     ListHeaderComponent={
                         <View>
                             <View>
-                                {renderMyBookSection(myBooks)}
+                                {renderMyBookSection(databaseBooks)}
                             </View>
-                            {/* Catrgories Section */}
+                            {/* Categories Section */}
                             <View style={{ marginTop: SIZES.padding }}>
                                 <View>
                                     {renderCategoryHeader()}
@@ -438,7 +427,7 @@ const Home = ({ navigation }) => {
                             </View>
                         </View>
                     }
-                    data={databaseBooks}
+                    data={books}
                     renderItem={renderItem}
                     keyExtractor={item => `${item.id}`}
                     showsVerticalScrollIndicator={false}
