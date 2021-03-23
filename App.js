@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading'
 
 import { LogBox } from 'react-native';
-LogBox.ignoreLogs(['Setting a timer'])
+LogBox.ignoreLogs(['Setting a timer', 'Remote debugger'])
 
 const theme = {
     ...DefaultTheme,
