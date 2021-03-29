@@ -12,3 +12,4 @@
 
 1. Developed for Android devicies using [Expo framework](https://docs.expo.io/)
 2. iOS version has been developed by [ByProgrammers](https://github.com/byprogrammers/LCRN06-book-store-app)
+3. Firebase RealTime Database & Datastorage have been used to store & admin books' information
